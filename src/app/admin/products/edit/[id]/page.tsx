@@ -14,6 +14,7 @@ type FormValues = {
 };
 
 const UpdateProduct = () => {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const params = useParams();
   const id = params.id;
   const { data: dataProduct, isLoading } = useGetProductById(Number(id));
@@ -21,6 +22,7 @@ const UpdateProduct = () => {
   const mutateImageCover = useUpdateImageCover();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imageCoverId, setImageCoverId] = useState<number | null>(null);
   const router = useRouter();
 
   const {
@@ -36,9 +38,10 @@ const UpdateProduct = () => {
       setValue("description", dataProduct.description);
       setValue("color", dataProduct.color);
       setValue("price", dataProduct.price);
-      setImagePreview(dataProduct.image_cover[0]?.url);
+      setImagePreview(`${baseUrl}${dataProduct.image_cover[0]?.url}`);
+      setImageCoverId(dataProduct.image_cover[0]?.id);
     }
-  }, [dataProduct, setValue]);
+  }, [dataProduct, setValue, baseUrl]);
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     await mutateProduct.mutateAsync({
@@ -57,7 +60,7 @@ const UpdateProduct = () => {
       formData.append("productId", Number(id).toString());
 
       mutateImageCover.mutate({
-        id: Number(id),
+        id: Number(imageCoverId),
         formData,
       });
     }

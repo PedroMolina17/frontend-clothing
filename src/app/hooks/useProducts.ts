@@ -61,11 +61,13 @@ const useGetProductById = (id: number) => {
 };
 
 const useUpdateProduct = () => {
+  const router = useRouter();
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ id, product }: { id: number; product: UpdateProduct }) =>
       updateProduct(id, product),
     onSuccess: () => {
+      router.push("/admin/products");
       queryClient.invalidateQueries({ queryKey: ["products"] });
     },
   });

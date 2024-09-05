@@ -74,7 +74,10 @@ const Products = () => {
                         alt={`Image ${image.id}`}
                         width={50}
                         height={50}
-                        className="rounded"
+                        className="rounded object-contain"
+                        style={{ width: "auto", height: "auto" }}
+                        priority={true}
+                        layout="fixed"
                       />
                     </li>
                   ))}
