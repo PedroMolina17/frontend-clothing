@@ -1,9 +1,10 @@
 "use client";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useCreateProduct } from "@/app/hooks/useProducts";
-import { useCreateImageCover } from "@/app/hooks/useImageCover";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter, useParams } from "next/navigation";
+import { useGetProductById, useUpdateProduct } from "@/app/hooks/useProducts";
+import { useUpdateImageCover } from "@/app/hooks/useImageCover";
+
 type FormValues = {
   name: string;
   description: string;
@@ -12,54 +13,75 @@ type FormValues = {
   image: FileList;
 };
 
-const CreateProduct = () => {
-  const mutateProduct = useCreateProduct();
-  const mutateImageCover = useCreateImageCover();
+const UpdateProduct = () => {
+  const params = useParams();
+  const id = params.id;
+  const { data: dataProduct, isLoading } = useGetProductById(Number(id));
+  const mutateProduct = useUpdateProduct();
+  const mutateImageCover = useUpdateImageCover();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const router = useRouter();
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const router = useRouter();
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>();
 
+  useEffect(() => {
+    if (dataProduct) {
+      setValue("name", dataProduct.name);
+      setValue("description", dataProduct.description);
+      setValue("color", dataProduct.color);
+      setValue("price", dataProduct.price);
+      setImagePreview(dataProduct.image_cover[0]?.url);
+    }
+  }, [dataProduct, setValue]);
+
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    console.log(data);
-    const productResponse = await mutateProduct.mutateAsync({
-      name: data.name,
-      description: data.description,
-      color: data.color,
-      price: data.price,
+    await mutateProduct.mutateAsync({
+      id: Number(id),
+      product: {
+        name: data.name,
+        description: data.description,
+        color: data.color,
+        price: data.price,
+      },
     });
 
-    if (productResponse && selectedFile) {
+    if (selectedFile) {
       const formData = new FormData();
       formData.append("imageCover", selectedFile);
-      formData.append("productId", Number(productResponse.id).toString());
-      mutateImageCover.mutate(formData);
+      formData.append("productId", Number(id).toString());
+
+      mutateImageCover.mutate({
+        id: Number(id),
+        formData,
+      });
     }
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
-      setSelectedFile(event.target.files[0]);
       const file = event.target.files[0];
       setSelectedFile(file);
-      const fileURL = URL.createObjectURL(file);
-      setImagePreview(fileURL);
+      setImagePreview(URL.createObjectURL(file));
     }
   };
+
   const handleCancel = () => {
     router.push("/admin/products");
   };
+
+  if (isLoading) return <p>Loading...</p>;
 
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-bold mb-4">Create Product</h2>
+          <h2 className="text-2xl font-bold mb-4">Update Product</h2>
           <div className="flex gap-4">
             <button
               onClick={handleCancel}
@@ -71,7 +93,7 @@ const CreateProduct = () => {
               type="submit"
               className="bg-[#72c76b] text-white p-2 rounded mt-4 w-44"
             >
-              Create Product
+              Update Product
             </button>
           </div>
         </div>
@@ -117,15 +139,16 @@ const CreateProduct = () => {
             <div>
               <label className="block text-gray-700">Price</label>
               <input
-                {...register("price", { required: "price is required" })}
+                {...register("price", { required: "Price is required" })}
                 type="text"
                 className="mt-1 block w-full border border-gray-300 p-2 rounded"
               />
-              {errors.color && (
-                <p className="text-red-600 mt-1">{errors.color.message}</p>
+              {errors.price && (
+                <p className="text-red-600 mt-1">{errors.price.message}</p>
               )}
             </div>
           </div>
+
           <div className="grid col-span-2">
             <div className="flex flex-col">
               <div className="relative">
@@ -164,4 +187,4 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+export default UpdateProduct;

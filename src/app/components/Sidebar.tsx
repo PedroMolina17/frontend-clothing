@@ -17,7 +17,7 @@ const Sidebar = () => {
       label: "Home",
     },
     {
-      href: "admin/products",
+      href: "/admin/products",
       icon: TbUsers,
       icon2: HiMiniUsers,
       label: "Products",
@@ -44,7 +44,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="flex flex-col absolute left-0 w-96 h-full bg-[#221f4a] p-2 gap-2 ">
+      <div className="flex flex-col absolute left-0 w-96 h-full bg-[#393939] p-2 gap-2 ">
         <p className="text-2xl font-bold text-white mt-8">Pedro Molina</p>
         {navLinks.map((navLink, index) => {
           const Icon = pathname === navLink.href ? navLink.icon2 : navLink.icon;
@@ -53,8 +53,8 @@ const Sidebar = () => {
               key={index}
               className={`w-full h-14 flex items-center p-2 text-lg rounded-md ${
                 pathname === navLink.href
-                  ? "text-white bg-[#5748eb]"
-                  : "hover:text-white text-[#858fb3] transition-colors"
+                  ? "text-white bg-[#868686]"
+                  : "hover:text-white text-[#afafaf] transition-colors"
               }`}
             >
               <li className="flex items-center">

@@ -36,7 +36,7 @@ const Products = () => {
         <h1 className="text-2xl font-bold mb-4">Products</h1>
         <button
           onClick={() => router.push("/admin/products/create")}
-          className="bg-[#141414] text-white rounded-md w-48"
+          className="bg-[#393939] text-white rounded-md w-48"
         >
           Create
         </button>
@@ -72,8 +72,8 @@ const Products = () => {
                       <Image
                         src={`${baseUrl}${image.url}`}
                         alt={`Image ${image.id}`}
-                        width={100}
-                        height={100}
+                        width={50}
+                        height={50}
                         className="rounded"
                       />
                     </li>

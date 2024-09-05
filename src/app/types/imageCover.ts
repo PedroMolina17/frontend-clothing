@@ -3,3 +3,8 @@ export interface ImageCover {
   url: string;
   productId: number;
 }
+
+export interface CreateImageCover {
+  url: string;
+  productId: number;
+}
