@@ -125,7 +125,14 @@ const CreateProduct = () => {
                 <p className="text-red-600 mt-1">{errors.color.message}</p>
               )}
             </div>
+            <div className="flex flex-col justify-start gap-2">
+              <button className="w-96  P-2 border">S</button>
+              <button className="w-96  P-2 border">M</button>
+              <button className="w-96 p-2 border">L</button>
+              <button className="w-96 p-2 border">XL</button>
+            </div>
           </div>
+
           <div className="grid col-span-2">
             <div className="flex flex-col">
               <div className="relative">
