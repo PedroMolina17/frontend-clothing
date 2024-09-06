@@ -4,117 +4,71 @@ import ProductCards from "../components/ProductCards";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 export default function Home() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const images = [
-    "/Slider1.jpg",
-    "/Slider1.jpg",
-    "/Slider1.jpg",
-    "/Slider1.jpg",
-    "/Slider1.jpg",
+  const products = [
+    {
+      id: 1,
+      name: "Product 1",
+      description: "This is a description for product 1.",
+      image: "/free-photo-of-moda-fotografia-marron-elegancia.jpeg",
+      price: "$29.99",
+    },
+    {
+      id: 2,
+      name: "Product 2",
+      description: "This is a description for product 2.",
+      image: "/free-photo-of-moda-zapatos-colorido-de-colores.jpeg",
+      price: "$39.99",
+    },
+    {
+      id: 3,
+      name: "Product 3",
+      description: "This is a description for product 3.",
+      image: "/pexels-photo-27385019.webp",
+      price: "$49.99",
+    },
   ];
-
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      handleNext();
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <main className="px-12 text-[#393939]">
-      <div
-        id="default-carousel"
-        className="relative w-full"
-        data-carousel="slide"
-      >
-        <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
-          {images.map((src, index) => (
+      <section className="hero bg-slate-100 p-12 text-center">
+        <h1 className="text-4xl font-bold mb-4">Welcome to Our Store</h1>
+        <p className="text-lg mb-8">Discover the best products just for you!</p>
+        <Image
+          src="/pexels-photo-135620.webp"
+          alt="Hero Image"
+          width={1200}
+          height={400}
+          className="mx-auto rounded-lg"
+        />
+      </section>
+
+      <section className="products mt-12">
+        <h2 className="text-3xl font-bold mb-6">Featured Products</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {products.map((product) => (
             <div
-              key={index}
-              className={`absolute block w-full h-full transition-opacity duration-700 ease-in-out ${
-                index === currentIndex ? "opacity-100" : "opacity-0"
-              }`}
-              data-carousel-item
+              key={product.id}
+              className="product-card border rounded-lg shadow-lg overflow-hidden"
             >
               <Image
-                src={src}
-                alt={`Slide ${index + 1}`}
-                layout="fill"
-                objectFit="cover"
-                className="block"
+                src={product.image}
+                alt={product.name}
+                width={300}
+                height={300}
+                className="w-full h-72 object-cover"
               />
+              <div className="p-4">
+                <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
+                <p className="text-gray-600 mb-4">{product.description}</p>
+                <p className="text-lg font-bold">{product.price}</p>
+                <button className="mt-4 px-4 py-2 bg-[#393939] text-white rounded-lg">
+                  Add to Cart
+                </button>
+              </div>
             </div>
           ))}
         </div>
-        <div className="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3">
-          {images.map((_, index) => (
-            <button
-              key={index}
-              type="button"
-              className={`w-3 h-3 rounded-full ${
-                index === currentIndex ? "bg-white" : "bg-gray-400"
-              }`}
-              onClick={() => setCurrentIndex(index)}
-              aria-label={`Slide ${index + 1}`}
-              data-carousel-slide-to={index}
-            />
-          ))}
-        </div>
-        <button
-          type="button"
-          className="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-          onClick={handlePrev}
-          data-carousel-prev
-        >
-          <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50">
-            <svg
-              className="w-4 h-4 text-white"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 6 10"
-            >
-              <path d="M5 1L1 5l4 4" />
-            </svg>
-            <span className="sr-only">Previous</span>
-          </span>
-        </button>
-        <button
-          type="button"
-          className="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-          onClick={handleNext}
-          data-carousel-next
-        >
-          <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50">
-            <svg
-              className="w-4 h-4 text-white"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 6 10"
-            >
-              <path d="M1 9l4-4-4-4" />
-            </svg>
-            <span className="sr-only">Next</span>
-          </span>
-        </button>
-      </div>
+      </section>
     </main>
   );
 }

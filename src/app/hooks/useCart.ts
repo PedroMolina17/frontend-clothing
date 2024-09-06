@@ -8,7 +8,6 @@ import {
   updateCartItem,
   deleteItemCart,
 } from "../services/cart";
-import Swal from "sweetalert2";
 const useGetAllCartItem = () => {
   return useQuery({
     queryKey: ["cartAllItems"],
@@ -16,7 +15,7 @@ const useGetAllCartItem = () => {
   });
 };
 
-const useGetCountImageCover = () => {
+const useGetCountCart = () => {
   return useQuery({
     queryKey: ["cartItems"],
     queryFn: () => getCountCart(),
@@ -61,5 +60,5 @@ export {
   useDeleteCartItem,
   useCreateCartItem,
   useUpdateCartItem,
-  useGetCountImageCover,
+  useGetCountCart,
 };

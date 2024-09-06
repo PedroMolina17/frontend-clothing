@@ -3,11 +3,11 @@ import Link from "next/link";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { useGetCountImageCover } from "../hooks/useCart";
+import { useGetCountCart } from "../hooks/useCart";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { data: countCart } = useGetCountImageCover();
+  const { data: countCart } = useGetCountCart();
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -29,7 +29,10 @@ const Navbar = () => {
           </h1>
         </div>
 
-        <div className="md:hidden flex items-center">
+        <div className="md:hidden flex gap-3 items-center">
+          <Link href={"/cart"}>
+            <FaShoppingCart />
+          </Link>
           <button onClick={toggleMenu} className="text-3xl max-md:text-lg">
             {isOpen ? <FaTimes /> : <FaBars />}
           </button>

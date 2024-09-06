@@ -28,23 +28,11 @@ const Sidebar = () => {
       icon2: BiSolidReport,
       label: "Client",
     },
-    {
-      href: "/admin/a",
-      icon: TbUsers,
-      icon2: HiMiniUsers,
-      label: "Users",
-    },
-    {
-      href: "/admin/ac",
-      icon: HiOutlineDocumentReport,
-      icon2: BiSolidReport,
-      label: "Reports",
-    },
   ];
 
   return (
     <>
-      <div className="flex flex-col absolute left-0 w-96 h-full bg-[#393939] p-2 gap-2 ">
+      <div className="flex flex-col  w-96 h-full bg-[#393939] p-2 gap-2 fixed top-0 left-0 ">
         <p className="text-2xl font-bold text-white mt-8">Pedro Molina</p>
         {navLinks.map((navLink, index) => {
           const Icon = pathname === navLink.href ? navLink.icon2 : navLink.icon;

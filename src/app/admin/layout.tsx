@@ -9,7 +9,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   return (
     <div className="flex">
       <Sidebar />
-      <main className="flex-1 ml-96 pt-24 p-4 ">{children}</main>
+      <main className="flex-1 ml-96 pt-16 p-4 ">{children}</main>
     </div>
   );
 };

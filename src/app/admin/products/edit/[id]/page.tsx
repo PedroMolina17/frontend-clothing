@@ -143,7 +143,7 @@ const UpdateProduct = () => {
               <label className="block text-gray-700">Price</label>
               <input
                 {...register("price", { required: "Price is required" })}
-                type="text"
+                type="number"
                 className="mt-1 block w-full border border-gray-300 p-2 rounded"
               />
               {errors.price && (
