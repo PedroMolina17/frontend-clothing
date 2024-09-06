@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { useGetAllCartItem } from "@/app/hooks/useCart";
 import { FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
@@ -9,9 +9,6 @@ const Cart = () => {
   const deleteProduct = useDeleteCartItem();
   const { data: cartItems } = useGetAllCartItem();
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-  const calculateSubtotal = (price: number, quantity: number) => {
-    return (price * quantity).toFixed(2);
-  };
 
   const handleDelete = (id: number) => {
     Swal.fire({
@@ -29,11 +26,29 @@ const Cart = () => {
     });
   };
 
+  const [quantities, setQuantities] = useState(
+    cartItems?.reduce((acc: any, item: any) => {
+      acc[item.id] = item.quantity;
+      return acc;
+    }, {}) || {}
+  );
+
+  const calculateSubtotal = (price: number, quantity: number) => {
+    return (price * quantity).toFixed(2);
+  };
+
+  const handleQuantityChange = (id: number, newQuantity: number) => {
+    setQuantities((prevQuantities: any) => ({
+      ...prevQuantities,
+      [id]: newQuantity,
+    }));
+  };
+
   const calculateTotal = () => {
     return cartItems
       ?.reduce(
         (total: number, item: any) =>
-          total + item.product.price * item.quantity,
+          total + item.product.price * (quantities[item.id] || item.quantity),
         0
       )
       .toFixed(2);
@@ -80,11 +95,18 @@ const Cart = () => {
                   <input
                     type="number"
                     defaultValue={item.quantity}
+                    onChange={(e) =>
+                      handleQuantityChange(item.id, parseInt(e.target.value))
+                    }
                     className="w-12 border rounded text-center"
                   />
                 </td>
                 <td className="py-4">
-                  €{calculateSubtotal(item.product.price, item.quantity)}
+                  €
+                  {calculateSubtotal(
+                    item.product.price,
+                    quantities[item.id] || item.quantity
+                  )}
                 </td>
               </tr>
             ))}
