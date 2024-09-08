@@ -28,6 +28,12 @@ const Sidebar = () => {
       icon2: BiSolidReport,
       label: "Client",
     },
+    {
+      href: "/admin/traitors",
+      icon: HiOutlineDocumentReport,
+      icon2: BiSolidReport,
+      label: "Traitor's List",
+    },
   ];
 
   return (
