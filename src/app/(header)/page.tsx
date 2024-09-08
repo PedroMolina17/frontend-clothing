@@ -29,17 +29,40 @@ export default function Home() {
   ];
 
   return (
-    <main className="px-12 text-[#393939]">
-      <section className="hero bg-slate-100 p-12 text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Our Store</h1>
-        <p className="text-lg mb-8">Discover the best products just for you!</p>
-        <Image
-          src="/pexels-photo-135620.webp"
-          alt="Hero Image"
-          width={1200}
-          height={400}
-          className="mx-auto rounded-lg"
-        />
+    <main className="py-2 text-[#393939]">
+      <section
+        className="hero bg-slate-100 p-12 text-center relative"
+        style={{
+          backgroundImage: "url(/pexels-photo-135620.webp)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          height: "700px",
+        }}
+      >
+        <div className="absolute inset-0 bg-[#1a1a1a] bg-opacity-60 z-10"></div>
+
+        <div className="flex flex-col gap-8 text-white z-30 relative">
+          <p className="text-xl mb-8 text-start">
+            Discover the best products just for you!
+          </p>
+          <h1 className="text-7xl font-bold mb-4 text-start">
+            Welcome to Our Storea
+          </h1>
+
+          <div className="text-start w-1/2">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
+            debitis id explicabo quam nostrum pariatur velit veniam vero quis
+            culpa, maiores distinctio repudiandae ratione illum soluta
+            necessitatibus perferendis vitae obcaecati! Adipisci quaerat ipsam
+            magnam quasi, soluta consequatur maiores. Aperiam molestias atque,
+            accusamus inventore odit deleniti odio adipisci repellat! Laudantium
+            atque quia repudiandae corporis. Voluptas magnam iusto voluptatem
+            culpa corporis optio reprehenderit laudantium maxime aut! Tempore
+          </div>
+          <button className="bg-[#e6e6e6] text-black px-4 py-2 mt-16 w-72 rounded-md font-bold">
+            Comprar
+          </button>
+        </div>
       </section>
 
       <section className="products mt-12">

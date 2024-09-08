@@ -14,7 +14,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="flex justify-between border-b p-1 text-[#393939] max-md:hidden">
+      <div className="flex justify-between border-b p-1 mx-8 text-[#393939] max-md:hidden">
         <div className="flex gap-2">
           <span>Login</span>
           <span>Register</span>
@@ -22,7 +22,7 @@ const Navbar = () => {
         <div className="flex gap-2">Es un ecommerce</div>
       </div>
 
-      <div className="flex justify-between items-center pt-4 pb-8 border-b ">
+      <div className="flex justify-between items-center pt-4 pb-8 border-b mx-8 ">
         <div className="flex gap-32 max-md:gap-12">
           <h1 className="text-4xl max-md:text-xl font-bold">
             <Link href={"/"}>eShop</Link>

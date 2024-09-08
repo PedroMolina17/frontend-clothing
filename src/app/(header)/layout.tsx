@@ -7,7 +7,7 @@ interface HomeLayoutProps {
 
 const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
   return (
-    <main className="px-12 max-md:px-2 text-[#393939]">
+    <main className=" text-[#393939]">
       <Navbar />
       <div>{children}</div>
     </main>
