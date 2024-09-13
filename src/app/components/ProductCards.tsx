@@ -5,6 +5,7 @@ import Image from "next/image";
 import { FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
 import { useCreateCartItem } from "../hooks/useCart";
+import Loading from "./Loading";
 const ProductCards = () => {
   const CreateCartItem = useCreateCartItem();
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -25,7 +26,7 @@ const ProductCards = () => {
     };
     CreateCartItem.mutate(cartItemData);
   };
-  if (isLoadingDataProducts) return <p>Loading...</p>;
+  if (isLoadingDataProducts) return <Loading />;
   if (!products) return <p>No products found</p>;
 
   return (

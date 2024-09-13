@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { useGetProductById, useUpdateProduct } from "@/app/hooks/useProducts";
 import { useUpdateImageCover } from "@/app/hooks/useImageCover";
-
+import Loading from "../../../../components/Loading";
 type FormValues = {
   name: string;
   description: string;
@@ -78,7 +78,7 @@ const UpdateProduct = () => {
     router.push("/admin/products");
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Loading />;
 
   return (
     <div>
