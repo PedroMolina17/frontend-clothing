@@ -1,30 +1,46 @@
 "use client";
 import { Product } from "../../types/product";
 import Image from "next/image";
+import { ImCross } from "react-icons/im";
+
 const Traitor = () => {
   const traitors = [
     {
       image: "/carlos-condori.png",
       price: "S/0",
       name: "Carlos El Loco Condori",
+      die: false,
     },
     {
       image: "/franchesco-somontes.png",
       price: "S/1.000.000",
       name: "Franchesco El venado de Gabriela Somontes",
+      die: true,
     },
     {
       image: "/joseph-gutierrez.png",
       price: "S/∞",
       name: "Joseph Barbilla Roja Gutierrez",
+      die: false,
     },
-    { image: "/henry-abanto.png", price: "S/1", name: "Henry El Otaku Abanto" },
+    {
+      image: "/henry-abanto.png",
+      price: "S/1",
+      name: "Henry El Otaku Abanto",
+      die: false,
+    },
     {
       image: "/cristhy-becerra.png",
       price: "S/1000",
       name: "Cristhy Resentida Becerra",
+      die: false,
     },
-    { image: "/alvaro-neira.png", price: "-S/10,000", name: "Alvaro Neira" },
+    {
+      image: "/alvaro-neira.png",
+      price: "-S/10,000",
+      name: "Alvaro Neira",
+      die: false,
+    },
   ];
 
   return (
@@ -37,7 +53,7 @@ const Traitor = () => {
         {traitors.map((traitor, index) => (
           <div
             key={index}
-            className="flex items-center justify-between py-2 border w-96"
+            className="flex items-center justify-between py-2 border w-96 relative"
           >
             <div className="flex flex-col items-center w-96 gap-4">
               <Image
@@ -54,6 +70,13 @@ const Traitor = () => {
                   <p className="text-gray-500">{traitor.price}</p>
                 </div>
               </div>
+              {traitor.die && (
+                <div className="absolute inset-0 flex justify-center items-center bg-opacity-50 ">
+                  <p className="text-[300px] font-extrabold text-red-500 opacity-40">
+                    <ImCross />
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         ))}
